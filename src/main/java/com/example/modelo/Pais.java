@@ -1,21 +1,21 @@
 package com.example.modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "Pais")
+@Table ( name = "Pais")
 public class Pais {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String nombre;
 
     public Pais(String nombre) {
         this.nombre = nombre;
     }
+
+    public Pais() {}
 
     public String getId() {
         return id;
@@ -31,5 +31,16 @@ public class Pais {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @OneToMany(mappedBy = "pais")
+    private Collection<Departamento> departamento;
+
+    public Collection<Departamento> getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Collection<Departamento> departamento) {
+        this.departamento = departamento;
     }
 }
